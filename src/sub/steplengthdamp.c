@@ -1,11 +1,5 @@
 #include <math.h>
-
-#define IEQ 658
-#define INSHOT 50
-#define INLTOT 100
-#define IST 650
-#define ILIP (4 * IEQ + INSHOT + INLTOT + IST)
-#define INVA (ILIP - 1)
+#include "../include/globals.h"
 
 extern int neqs;
 extern int nshot;
@@ -30,7 +24,7 @@ void steplengthdamp(double *damp) {
     if (icount == 1) {
         return;
     }
-    if (scale[5] == 0.0f) {
+    if (scale[5] == 0.0) {
         return;
     }
 

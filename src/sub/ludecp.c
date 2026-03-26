@@ -17,7 +17,7 @@ void ludecp(const double *a, double *ul, int n, double *d1, double *d2,
     }
 
     *d1 = one;
-    *d2 = 0.0f;
+    *d2 = 0.0;
     rn = one / ((double)n * sixtn);
     ip = 0;
     *ier = 0;

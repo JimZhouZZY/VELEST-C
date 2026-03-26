@@ -39,8 +39,8 @@ void magnitude(int ievent, int itime) {
     char staname[5];
     
     nmag = 0;
-    xmagnitude = 0.0f;
-    sdxmagnitude = 0.0f;
+    xmagnitude = 0.0;
+    sdxmagnitude = 0.0;
     
     /* Loop over all observations for this event */
     for (i = 0; i < knobs[ievent]; i++) {
@@ -68,8 +68,8 @@ void magnitude(int ievent, int itime) {
         }
         
         /* Extract station parameter scales */
-        sconst = (double)iscon / 10.0f;
-        sdampf = (double)isdmp / 10.0f;
+        sconst = (double)iscon / 10.0;
+        sdampf = (double)isdmp / 10.0;
         voltgain = (double)isamp;
         
         /* Calculate distance to station */
@@ -78,7 +78,7 @@ void magnitude(int ievent, int itime) {
         delta = sqrtf(dx * dx + dy * dy);
         
         /* Calculate magnitude for this observation */
-        xmag = 0.0f;
+        xmag = 0.0;
         muk(delta, e[ievent][4], ifilt, iseis, sconst, sdampf,
             voltgain, cormag, amx[i], prx[i], &xmagni[i]);
         
@@ -100,10 +100,10 @@ void magnitude(int ievent, int itime) {
             sdxmagnitude = sqrtf((nmag * sdxmagnitude - xmagnitude * xmagnitude) /
                                  (nmag * (nmag - 1)));
         } else {
-            sdxmagnitude = 0.0f;
+            sdxmagnitude = 0.0;
         }
         xmagnitude = xmagnitude / nmag;
     } else {
-        xmagnitude = 0.0f;
+        xmagnitude = 0.0;
     }
 }

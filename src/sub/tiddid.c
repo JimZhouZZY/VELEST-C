@@ -4,18 +4,18 @@ void tiddid(int jl, int nl, const double v[], const double vsq[], const double t
             double tid[], double did[]) {
     int j1 = jl + 1;
     for (int m = j1; m < nl; ++m) {
-        tid[m] = 0.0f;
-        did[m] = 0.0f;
+        tid[m] = 0.0;
+        did[m] = 0.0;
 
-        double tid1 = 0.0f;
-        double tid2 = 0.0f;
-        double did1 = 0.0f;
-        double did2 = 0.0f;
+        double tid1 = 0.0;
+        double tid2 = 0.0;
+        double did1 = 0.0;
+        double did2 = 0.0;
 
         for (int l = 0; l < m; ++l) {
             if (vsq[m] <= vsq[l]) {
-                tid[m] = 100000.0f;
-                did[m] = 100000.0f;
+                tid[m] = 100000.0;
+                did[m] = 100000.0;
                 break;
             }
 
@@ -32,7 +32,7 @@ void tiddid(int jl, int nl, const double v[], const double vsq[], const double t
             }
         }
 
-        if (tid[m] != 100000.0f) {
+        if (tid[m] != 100000.0) {
             tid[m] = tid1 + 2.0f * tid2;
             did[m] = did1 + 2.0f * did2;
         }

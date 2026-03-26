@@ -5,8 +5,7 @@
 
 #include <stddef.h>
 #include <math.h>
-
-#define INRPMAX 200
+#include "../include/globals.h"
 
 /* External global variables from vel_com.inc */
 extern int lmax;

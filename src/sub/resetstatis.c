@@ -6,9 +6,7 @@
 
 #include <stddef.h>
 #include <stdio.h>
-
-#define INLTOT 100
-#define IST 650
+#include "../include/globals.h"
 
 /* External global variables and file descriptors from vel_com.inc */
 extern int irflout;

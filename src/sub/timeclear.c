@@ -70,12 +70,12 @@ void timeclear(int *iyr, int *imo, int *iday, int *ihr, int *imin,
     
     /* Normalize seconds (handle < 0 or > 60) */
     sec1 = *sec;
-    while (sec1 < 0.0f || sec1 > 60.0f) {
-        if (sec1 < 0.0f) {
-            *sec = sec1 + 60.0f;
+    while (sec1 < 0.0 || sec1 > 60.0) {
+        if (sec1 < 0.0) {
+            *sec = sec1 + 60.0;
             *itime = *itime - 1;
-        } else if (sec1 > 60.0f) {
-            *sec = sec1 - 60.0f;
+        } else if (sec1 > 60.0) {
+            *sec = sec1 - 60.0;
             *itime = *itime + 1;
         }
         sec1 = *sec;

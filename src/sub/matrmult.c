@@ -17,7 +17,7 @@ void matrmult(const double *a, int m, int p, const double *b, int p1, int n,
 
     for (i = 0; i < m; ++i) {
         for (j = 0; j < n; ++j) {
-            double s = 0.0f;
+            double s = 0.0;
             for (k = 0; k < p; ++k) {
                 s += a[i * p + k] * b[k * n + j];
             }

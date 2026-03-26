@@ -131,7 +131,7 @@ if (cew == 'E') {
         char sta4[5] = {0};
         char phase = '\0';
         int wt = 0;
-        double tt = 0.0f;
+        double tt = 0.0;
 
         if (fgets(cline, sizeof(cline), fp) == NULL) {
             break;

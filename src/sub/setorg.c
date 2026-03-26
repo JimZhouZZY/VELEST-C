@@ -20,7 +20,7 @@ void setorg(double orlat, double orlon, double rrotate, int ifil) {
 
     rotate = rrotate;
 
-    if (orlat == 0.0f && orlon == 0.0f) {
+    if (orlat == 0.0 && orlon == 0.0) {
         olat = 46.95240f;
         olon = -7.439583f;
     } else {
@@ -28,8 +28,8 @@ void setorg(double orlat, double orlon, double rrotate, int ifil) {
         olon = orlon;
     }
 
-    olat *= 60.0f;
-    olon *= 60.0f;
+    olat *= 60.0;
+    olon *= 60.0;
 
     rad = 0.017453292;
 
@@ -48,10 +48,10 @@ void setorg(double orlat, double orlon, double rrotate, int ifil) {
         fprintf(out, " Radius at equator (REARTH)= %10.5f  km\n", rearth);
         fprintf(out, "   1. / (ellipticity)      = %10.3f\n\n", ellip);
         fprintf(out, "Origin of cartesian coordinates [degrees]:\n");
-        if (orlat == 0.0f && orlon == 0.0f) {
+        if (orlat == 0.0 && orlon == 0.0) {
             fprintf(out, " (Origin = city of BERNE, Switzerland)\n");
         }
-        fprintf(out, " %12.7f N     %12.7f W\n\n", olat / 60.0f, olon / 60.0f);
+        fprintf(out, " %12.7f N     %12.7f W\n\n", olat / 60.0, olon / 60.0);
         fprintf(out, " Rotation angle (in degr.) clockwise from\n");
         fprintf(out, "North  rotate= %6.1f\n\n", rotate);
     }

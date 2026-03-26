@@ -8,10 +8,7 @@
 #include <stdio.h>
 #include <math.h>
 #include <stdbool.h>
-
-#define IEQ 658
-#define IST 650
-#define MAX_OBS 200
+#include "../include/globals.h"
 
 /* External global variables from vel_com.inc */
 extern int knobs[IEQ];
@@ -28,7 +25,7 @@ extern void sorti(int arr[], int n);
 void gapcalc(int i) {
     int nofgaps, j, ig;
     double xstn, ystn, xhyp, yhyp, dxstnhyp, dystnhyp;
-    int iga[MAX_OBS];
+    int iga[MAXOBSPEREVENT];
     
     nofgaps = 0;
     
@@ -37,18 +34,18 @@ void gapcalc(int i) {
     }
 
     /* Check array size */
-    if (knobs[i] > MAX_OBS) {
+    if (knobs[i] > MAXOBSPEREVENT) {
         if (!single_turbo) {
             fprintf(stderr, "WARNING: Event# %d Nobs = %d > %d\n",
-                    i, knobs[i], MAX_OBS);
+                    i, knobs[i], MAXOBSPEREVENT);
         }
-        printf("Event# %d Nobs = %d > %d\n", i, knobs[i], MAX_OBS);
+        printf("Event# %d Nobs = %d > %d\n", i, knobs[i], MAXOBSPEREVENT);
         return;
     }
     
     /* Loop through observations and compute bearings */
     for (j = 0; j < knobs[i]; j++) {
-        if (w[j][i] > 0.0f) {
+        if (w[j][i] > 0.0) {
             nofgaps++;
             xstn = x[istm[j][i]][0];
             ystn = x[istm[j][i]][1];

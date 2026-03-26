@@ -126,7 +126,7 @@ void inputsed(FILE *fp, int *nobs,
 
     for (int idx = 0; idx < *nobs; ++idx) {
         if (iwt[idx] < 5) {
-            sec[idx] = (double)(itime1[idx] - itime) * 60.0f + sec[idx];
+            sec[idx] = (double)(itime1[idx] - itime) * 60.0 + sec[idx];
         }
     }
 

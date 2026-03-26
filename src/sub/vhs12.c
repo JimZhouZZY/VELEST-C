@@ -34,7 +34,7 @@ void vhs12(int mode, int lp, int l1, int m, double u[], double *up,
             cl = fmaxf(fabs(u[ij]), cl);
         }
         
-        if (cl <= 0.0f) {
+        if (cl <= 0.0) {
             return;
         }
         
@@ -48,7 +48,7 @@ void vhs12(int mode, int lp, int l1, int m, double u[], double *up,
         sm1 = sm;  /* Convert to single precision */
         cl = cl * sqrtf(sm1);
         
-        if (u[ilp] > 0.0f) {
+        if (u[ilp] > 0.0) {
             cl = -cl;
         }
         
@@ -61,14 +61,14 @@ void vhs12(int mode, int lp, int l1, int m, double u[], double *up,
         return;
     }
     
-    if (cl <= 0.0f) {
+    if (cl <= 0.0) {
         return;
     }
     
     b = (*up) * u[ilp];
     
     /* B must be non-positive; if B == 0, return */
-    if (b >= 0.0f) {
+    if (b >= 0.0) {
         return;
     }
     
@@ -92,7 +92,7 @@ void vhs12(int mode, int lp, int l1, int m, double u[], double *up,
             i3 = i3 + incc;
         }
         
-        if (sm == 0.0f) {
+        if (sm == 0.0) {
             continue;
         }
         

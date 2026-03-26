@@ -1,12 +1,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <string.h>
-
-#define IEQ 658
-#define INSHOT 50
-#define ITOTMODELS 2
-#define INLTOT 100
-#define IST 650
+#include "../include/globals.h"
 
 extern int isingle;
 extern int iturbo;
@@ -85,8 +80,8 @@ void finalstaresi(void) {
     fprintf(stdout, "\n sta phase nobs avres  avwres    std    wsum    delay\n\n");
 
     for (int m = 0; m < nsta; ++m) {
-        aa[m] = bb[m] = dd[m] = ee[m] = 0.0f;
-        aas[m] = bbs[m] = dds[m] = ees[m] = 0.0f;
+        aa[m] = bb[m] = dd[m] = ee[m] = 0.0;
+        aas[m] = bbs[m] = dds[m] = ees[m] = 0.0;
         icc[m] = iccs[m] = 0;
     }
 
@@ -94,7 +89,7 @@ void finalstaresi(void) {
         for (int i = 0; i < legs; ++i) {
             int k = knobs[i];
             for (int j = 0; j < k; ++j) {
-                if (strcmp(stn[m], smn[j][i]) == 0 && (sphase[j][i] == 0.0f || sphase[j][i] == -1.0f)) {
+                if (strcmp(stn[m], smn[j][i]) == 0 && (sphase[j][i] == 0.0 || sphase[j][i] == -1.0f)) {
                     aa[m] += res[j][i] * w[j][i];
                     bb[m] += res[j][i] * res[j][i] * w[j][i] * w[j][i];
                     ee[m] += res[j][i];
@@ -129,15 +124,15 @@ void finalstaresi(void) {
             char cew = 'W';
             double lat = xla[m];
             double lon = xlo[m];
-            if (lat < 0.0f) { cns = 'S'; lat = -lat; }
-            if (lon < 0.0f) { cew = 'E'; lon = -lon; }
+            if (lat < 0.0) { cns = 'S'; lat = -lat; }
+            if (lon < 0.0) { cew = 'E'; lon = -lon; }
             fprintf(stfp, "%4s %8.4f%c %9.4f%c %5d %3d %3d %8.4f %8.4f\n",
                     stn[m], lat, cns, lon, cew, ielev[m], model[m], map1[m], ptcor[m], stcor[m]);
         }
 
-        if (dd[m] > 0.0f && icc[m] >= 2) {
+        if (dd[m] > 0.0 && icc[m] >= 2) {
             double var = (bb[m] - aa[m] * aa[m] / dd[m]) * (double)icc[m] / (dd[m] * (double)(icc[m] - 1));
-            if (var < 0.0f) var = 0.0f;
+            if (var < 0.0) var = 0.0;
             bb[m] = sqrtf(var);
             aa[m] /= dd[m];
             ee[m] /= (double)icc[m];
@@ -145,9 +140,9 @@ void finalstaresi(void) {
                     stn[m], phz[1], icc[m], ee[m], aa[m], bb[m], dd[m], ptcor[m]);
         }
 
-        if (nsp != 1 && dds[m] > 0.0f && iccs[m] >= 2) {
+        if (nsp != 1 && dds[m] > 0.0 && iccs[m] >= 2) {
             double var = (bbs[m] - aas[m] * aas[m] / dds[m]) * (double)iccs[m] / (dds[m] * (double)(iccs[m] - 1));
-            if (var < 0.0f) var = 0.0f;
+            if (var < 0.0) var = 0.0;
             bbs[m] = sqrtf(var);
             aas[m] /= dds[m];
             ees[m] /= (double)iccs[m];

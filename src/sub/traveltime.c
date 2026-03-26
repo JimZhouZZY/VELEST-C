@@ -1,13 +1,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdlib.h>
-
-#define IEQ 658
-#define INSHOT 50
-#define ITOTMODELS 2
-#define INLTOT 100
-#define IST 650
-#define INRPMAX (2 * INLTOT + 2)
+#include "../include/globals.h"
 
 extern int isingle, neqs, nitt, nsp, ireflector, itopo, ifixsolution;
 extern int nplay[INLTOT], iphase[IST][IEQ], istm[IST][IEQ], map2[INSHOT], map1[IST], kpwt[IST][IEQ], iain[IST];
@@ -55,12 +49,12 @@ void traveltime(int i, int nobs, int iresflag) {
     //        e[0][ie], e[1][ie], e[2][ie], e[3][ie], e[4][ie]);
 
     if (isingle > 0 && kpwt[io][ie] == 5) {
-        if (w[io][ie] != 0.0f) {
+        if (w[io][ie] != 0.0) {
             fprintf(stderr, "TRAVELTIME>>> error in obs-wt!\n");
             exit(1);
         }
-        res[io][ie] = 0.0f;
-        for (int ii = 0; ii < 3; ++ii) dtdr[ii] = 0.0f;
+        res[io][ie] = 0.0;
+        for (int ii = 0; ii < 3; ++ii) dtdr[ii] = 0.0;
         return;
     }
 
@@ -97,13 +91,13 @@ again:
             thk[ii] = thkp[k2idx][ii];
         }
 
-        double ttt = 0.0f;
+        double ttt = 0.0;
         double tkh = x[k1][2] - h[0];
         double r1 = e[1][ie] - x[k1][0];
         double r2 = e[2][ie] - x[k1][1];
 
         if (itopo > 0) {
-            if (e[3][ie] < 0.0f) chtop(-e[1][ie], e[2][ie], &zmin, topo1file, topo2file);
+            if (e[3][ie] < 0.0) chtop(-e[1][ie], e[2][ie], &zmin, topo1file, topo2file);
             else zmin = zmininput;
         }
 
@@ -112,7 +106,7 @@ again:
         } else {
             if (e[3][ie] <= zmin) e[3][ie] = zmin + 0.011f;
         }
-        if (ifixsolution > 0 && e[3][ie] <= 0.0f) e[3][ie] = zmin + 0.001f;
+        if (ifixsolution > 0 && e[3][ie] <= 0.0) e[3][ie] = zmin + 0.001f;
 
         delta = sqrtf(r1 * r1 + r2 * r2);
 
@@ -122,8 +116,8 @@ again:
         double rp[3][200];
         int nrp = 0, nrtn = 0;
         int nrpdeep = 0;
-        double ster = 0.0f, direr = 0.0f, refrer = 0.0f, refler = 0.0f;
-        double dtddrefl = 0.0f, dtdhrefl = 0.0f;
+        double ster = 0.0, direr = 0.0, refrer = 0.0, refler = 0.0;
+        double dtddrefl = 0.0, dtdhrefl = 0.0;
 
         static const double d1[1] = {1.0f};
         static double vel_dummy[1][100][100];
@@ -174,7 +168,7 @@ again:
 
         double pobs = (sphase[io][ie] != 2.0f) ? (pt[io][ie] - e[0][ie]) : pt[io][ie];
         double extrat1 = ptcor[k1];
-        double extrat2 = 0.0f;
+        double extrat2 = 0.0;
 
         extern int nshcor;
         if (nsp == 2 && sphase[io][ie] == 1.0f) extrat1 = stcor[k1];
@@ -203,8 +197,8 @@ again:
             double num = sqrtf((rp[0][1] - rp[0][0]) * (rp[0][1] - rp[0][0]) +
                               (rp[1][1] - rp[1][0]) * (rp[1][1] - rp[1][0]));
             double den = sqrtf(num * num + (rp[2][1] - rp[2][0]) * (rp[2][1] - rp[2][0]));
-            double takeoff = (den > 0.0f) ? (57.296f * asinf(num / den)) : 0.0f;
-            if ((rp[2][1] - rp[2][0]) < 0.0f) takeoff = 180.0f - takeoff;
+            double takeoff = (den > 0.0) ? (57.296f * asinf(num / den)) : 0.0;
+            if ((rp[2][1] - rp[2][0]) < 0.0) takeoff = 180.0 - takeoff;
             iain[io] = (int)lroundf(takeoff);
         }
 

@@ -25,7 +25,7 @@ void reviveobs(int i, int nobs, int *iresflag) {
     int knobst, iii, iobswt;
     
     /* Check if weight is not zero (already active) */
-    if (w[nobs - 1][i] != 0.0f) {
+    if (w[nobs - 1][i] != 0.0) {
         return;
     }
     
@@ -36,15 +36,15 @@ void reviveobs(int i, int nobs, int *iresflag) {
     
     /* Re-normalize weights for this event */
     nobswithw0--;
-    wsum = 0.0f;
+    wsum = 0.0;
     knobst = knobs[i];
     
     for (iii = 0; iii < knobst; iii++) {
         iobswt = kpwt[iii][i];
         
         /* Keep zero weights as they are, except for current observation */
-        if (iii != (nobs - 1) && w[iii][i] == 0.0f) {
-            w[iii][i] = 0.0f;
+        if (iii != (nobs - 1) && w[iii][i] == 0.0) {
+            w[iii][i] = 0.0;
         } else {
             /* Assign weight based on observation class */
             if (iobswt < 4) {
@@ -54,7 +54,7 @@ void reviveobs(int i, int nobs, int *iresflag) {
                     w[iii][i] = 1.0f / (double)(1 << (iobswt * 2));  /* P or M phase */
                 }
             } else {
-                w[iii][i] = 0.0f;  /* Weight 4 ==> don't use */
+                w[iii][i] = 0.0;  /* Weight 4 ==> don't use */
             }
         }
         wsum += w[iii][i];

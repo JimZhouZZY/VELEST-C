@@ -8,12 +8,12 @@ extern FILE *fm_ptr;
 
 void avresistatist(void) {
     static int ifirstrun = 0;
-    static double oldres = 0.0f;
+    static double oldres = 0.0;
 
     int nrtotres;
-    double abtotres = 0.0f;
-    double avtotres = 0.0f;
-    double proz = 0.0f;
+    double abtotres = 0.0;
+    double avtotres = 0.0;
+    double proz = 0.0;
 
     FILE *logfp = (fm_ptr != NULL) ? fm_ptr : stdout;
 
@@ -57,9 +57,9 @@ void avresistatist(void) {
 
     if (ifirstrun != 10000001) {
         ifirstrun = 10000001;
-        proz = 0.0f;
+        proz = 0.0;
     } else if (fabs(oldres) > 1.0e-10f) {
-        proz = 100.0f * (abtotres - oldres) / oldres;
+        proz = 100.0 * (abtotres - oldres) / oldres;
     }
 
     fprintf(logfp, " %5d ALL                 RAYS =%9.5f [%9.5f]     %7.2f %%\n",

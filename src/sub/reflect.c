@@ -5,13 +5,13 @@ void reflect(int nl, const double v[], const double vsq[], const double thk[],
              int *jl, double *tkj, double delta, double z, int mll,
              double *trefl, double *ain, int *ierr,
              double *dtddrefl, double *dtdhrefl) {
-    double vi[100] = {0.0f};
-    double vsqu[100] = {0.0f};
-    double div[100] = {0.0f};
+    double vi[100] = {0.0};
+    double vsqu[100] = {0.0};
+    double div[100] = {0.0};
 
     *ierr = 0;
-    *dtddrefl = 0.0f;
-    *dtdhrefl = 0.0f;
+    *dtddrefl = 0.0;
+    *dtdhrefl = 0.0;
 
     const double test4 = 0.01f;
 
@@ -19,7 +19,7 @@ void reflect(int nl, const double v[], const double vsq[], const double thk[],
         vi[i] = 1.0f / v[i];
     }
 
-    double sum = 0.0f;
+    double sum = 0.0;
     *jl = 0;
     while (*jl < nl) {
         sum += thk[*jl];
@@ -47,7 +47,7 @@ void reflect(int nl, const double v[], const double vsq[], const double thk[],
 
     int nit = 0;
     double zbig = *tkj;
-    sum = 0.0f;
+    sum = 0.0;
 
     for (int m = 0; m <= mll; ++m) {
         double fac = 1.0f;
@@ -63,10 +63,10 @@ void reflect(int nl, const double v[], const double vsq[], const double thk[],
     }
 
     double a = atan2f(delta, sum);
-    double sina = 0.0f;
-    double sina2 = 0.0f;
-    double da = 0.0f, da2 = 0.0f;
-    double dddas = 0.0f;
+    double sina = 0.0;
+    double sina2 = 0.0;
+    double da = 0.0, da2 = 0.0;
+    double dddas = 0.0;
 
     while (1) {
         sina = sinf(a);
@@ -75,12 +75,12 @@ void reflect(int nl, const double v[], const double vsq[], const double thk[],
         }
         sina2 = sina * sina;
 
-        double dellit = 0.0f;
-        dddas = 0.0f;
+        double dellit = 0.0;
+        dddas = 0.0;
 
         for (int m = 0; m <= mll; ++m) {
             double sqr = vsqu[m] - sina2;
-            if (sqr <= 0.0f) {
+            if (sqr <= 0.0) {
                 *ierr = 50;
                 return;
             }
@@ -110,8 +110,8 @@ void reflect(int nl, const double v[], const double vsq[], const double thk[],
         }
     }
 
-    double tt = 0.0f;
-    double dtda = 0.0f;
+    double tt = 0.0;
+    double dtda = 0.0;
 
     for (int m = 0; m <= mll; ++m) {
         double ti = div[m] * vi[m] / sqrtf(1.0f - sina2 / vsqu[m]);

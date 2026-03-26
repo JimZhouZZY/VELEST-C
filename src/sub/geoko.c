@@ -2,9 +2,9 @@ void ebell(double yl, double xb, double *l, double *b, double *my);
 void elleb(double l, double b, double *x, double *y);
 
 void geoko(double *x, double *y, double xlat, double xlon, int i) {
-    double seichmy = 0.0f;
-    double lat = 0.0f;
-    double lon = 0.0f;
+    double seichmy = 0.0;
+    double lat = 0.0;
+    double lon = 0.0;
 
     if (!x || !y) {
         return;

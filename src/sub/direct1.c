@@ -6,7 +6,7 @@ void direct1(int nl, const double v[], const double vsq[], const double thk[],
              double *tdir, double *u, double *x) {
     (void)nl;
 
-    double del = 0.0f;
+    double del = 0.0;
 
     int lmax = jl;
     double tklmax = tkj;
@@ -48,7 +48,7 @@ void direct1(int nl, const double v[], const double vsq[], const double thk[],
         delb += thk[l] * ub / ubdiv;
     }
 
-    double usq = 0.0f;
+    double usq = 0.0;
     for (int kount = 0; kount < 25; ++kount) {
         if ((delb - dela) < 0.02f) {
             *x = 0.5f * (xa + xb);
@@ -70,7 +70,7 @@ void direct1(int nl, const double v[], const double vsq[], const double thk[],
         if (fabs(xtest) < 0.02f) {
             break;
         }
-        if (xtest < 0.0f) {
+        if (xtest < 0.0) {
             xa = *x;
             dela = del;
         } else {
@@ -79,7 +79,7 @@ void direct1(int nl, const double v[], const double vsq[], const double thk[],
         }
     }
 
-    if (del == 0.0f) {
+    if (del == 0.0) {
         del = *x;
     }
 

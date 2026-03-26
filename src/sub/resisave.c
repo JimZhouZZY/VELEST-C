@@ -1,9 +1,6 @@
 #include <math.h>
 #include <stdio.h>
-
-#define IEQ 658
-#define IST 650
-#define INRPMAX 200
+#include "../include/globals.h"
 
 extern double avrefrres;
 extern double abrefrres;
@@ -95,15 +92,15 @@ void resisave(int nrp, int nrpdeep, double rp[3][200], int nobs, int i, int k1, 
     ystn = rp[1][nrp - 1];
 
     azi = 57.296f * atan2f(xhyp - xstn, yhyp - ystn);
-    if (azi < 0.0f) {
-        azi += 360.0f;
+    if (azi < 0.0) {
+        azi += 360.0;
     }
 
     iazi = 0;
-    if (azi >= 0.0f && azi < 90.0f) iazi = 1;
-    if (azi >= 90.0f && azi < 180.0f) iazi = 2;
-    if (azi >= 180.0f && azi < 270.0f) iazi = 3;
-    if (azi >= 270.0f && azi <= 360.0f) iazi = 4;
+    if (azi >= 0.0 && azi < 90.0) iazi = 1;
+    if (azi >= 90.0 && azi < 180.0) iazi = 2;
+    if (azi >= 180.0 && azi < 270.0) iazi = 3;
+    if (azi >= 270.0 && azi <= 360.0) iazi = 4;
 
     stnazires[k1][2 * iazi - 2] += res[obs][ev];
     stnazires[k1][2 * iazi - 1] += 1.0f;

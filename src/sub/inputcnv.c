@@ -45,7 +45,7 @@ void inputcnv(FILE *fp, int *nobs,
 
     const int maxobsperevent = 180;
     char cline[256];
-    double ttime[180] = {0.0f};
+    double ttime[180] = {0.0};
     char cns = 'N';
     char cew = 'W';
     int itime;

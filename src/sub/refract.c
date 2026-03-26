@@ -6,27 +6,27 @@ extern void tiddid(int jl, int nl, const double v[], const double vsq[], const d
 void refract(int nl, const double v[], const double vsq[], const double thk[],
              int jl, double tkj, double delta,
              int *kk, double *tref, double *didjkk, double *xovmax) {
-    double tid[100] = {0.0f};
-    double did[100] = {0.0f};
-    double tinj[100] = {0.0f};
-    double didj[100] = {0.0f};
-    double tr[100] = {0.0f};
+    double tid[100] = {0.0};
+    double did[100] = {0.0};
+    double tinj[100] = {0.0};
+    double didj[100] = {0.0};
+    double tr[100] = {0.0};
 
     tiddid(jl, nl, v, vsq, thk, tid, did);
 
-    *tref = 100000.0f;
+    *tref = 100000.0;
     int j1 = jl + 1;
 
     for (int m = j1; m < nl; ++m) {
-        if (tid[m] == 100000.0f) {
-            tr[m] = 100000.0f;
+        if (tid[m] == 100000.0) {
+            tr[m] = 100000.0;
         } else {
             double sqt = sqrtf(vsq[m] - vsq[jl]);
             tinj[m] = tid[m] - tkj * sqt / (v[m] * v[jl]);
             didj[m] = did[m] - tkj * v[jl] / sqt;
             tr[m] = tinj[m] + delta / v[m];
             if (didj[m] > delta) {
-                tr[m] = 100000.0f;
+                tr[m] = 100000.0;
             }
         }
 
@@ -37,15 +37,15 @@ void refract(int nl, const double v[], const double vsq[], const double thk[],
         }
     }
 
-    if (*tref == 100000.0f) {
-        *didjkk = 100000.0f;
-        *xovmax = 100000.0f;
+    if (*tref == 100000.0) {
+        *didjkk = 100000.0;
+        *xovmax = 100000.0;
         *kk = -1;
         return;
     }
 
     int m = jl + 1;
-    while (m < nl && tid[m] == 100000.0f) {
+    while (m < nl && tid[m] == 100000.0) {
         m++;
     }
     int lx = m;
@@ -57,10 +57,10 @@ void refract(int nl, const double v[], const double vsq[], const double thk[],
 
     m = jl;
     while (1) {
-        tid[m] = 0.0f;
+        tid[m] = 0.0;
         for (int l = 0; l < m; ++l) {
             if (vsq[m] <= vsq[l]) {
-                tid[m] = 100000.0f;
+                tid[m] = 100000.0;
                 break;
             }
             double sqt = sqrtf(vsq[m] - vsq[l]);
@@ -69,12 +69,12 @@ void refract(int nl, const double v[], const double vsq[], const double thk[],
         }
 
         m--;
-        if (tid[m + 1] < 100000.0f || m == 0) {
+        if (tid[m + 1] < 100000.0 || m == 0) {
             break;
         }
     }
 
-    if (tid[m + 1] < 100000.0f) {
+    if (tid[m + 1] < 100000.0) {
         int jx = m + 1;
         *xovmax = (tinj[lx] - tid[jx]) * v[lx] * v[jx] / (v[lx] - v[jx]);
     } else {

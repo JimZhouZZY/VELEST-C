@@ -11,15 +11,15 @@ void regworld(int ityp, double cord1, double cord2, char *place, int *nreg) {
     const double galat = 46.7706f;
     const double galon = 8.09428f;
 
-    double gelat = 0.0f;
-    double gelon = 0.0f;
+    double gelat = 0.0;
+    double gelon = 0.0;
 
     if (ityp <= 0) {
         gelat = cord1;
         gelon = cord2;
     } else {
         double pi = 3.141593f;
-        double pirad = pi / 180.0f;
+        double pirad = pi / 180.0;
         double galor = galon * pirad;
         double galar = galat * pirad;
         double xazr = cord2 * pirad;
@@ -33,16 +33,16 @@ void regworld(int ityp, double cord1, double cord2, char *place, int *nreg) {
 
         double gelac = asinf(q);
         double xlatr = gelac;
-        double gelor = 0.0f;
+        double gelor = 0.0;
 
-        if (cosf(gelac) != 0.0f && cosf(galar) != 0.0f) {
+        if (cosf(gelac) != 0.0 && cosf(galar) != 0.0) {
             double ck1 = (cosf(xdr) - sinf(galar) * sinf(xlatr)) / (cosf(galar) * cosf(xlatr));
             double ck2 = (sinf(xazr) * sinf(xdr)) / cosf(xlatr);
 
             if (fabs(ck1) <= 1.0f && fabs(ck2) <= 1.0f) {
-                if (ck1 < 0.0f && ck2 >= 0.0f) gelor = galor + acosf(ck1);
-                else if (ck1 >= 0.0f && ck2 < 0.0f) gelor = galor + asinf(ck2);
-                else if (ck1 >= 0.0f && ck2 >= 0.0f) gelor = galor + acosf(ck1);
+                if (ck1 < 0.0 && ck2 >= 0.0) gelor = galor + acosf(ck1);
+                else if (ck1 >= 0.0 && ck2 < 0.0) gelor = galor + asinf(ck2);
+                else if (ck1 >= 0.0 && ck2 >= 0.0) gelor = galor + acosf(ck1);
                 else gelor = galor - pi - asinf(ck2);
             }
         }
@@ -63,18 +63,18 @@ void regworld(int ityp, double cord1, double cord2, char *place, int *nreg) {
 
     double xlat = gelat;
     double xlon = gelon;
-    if (xlon < 0.0f) xlon += 360.0f;
+    if (xlon < 0.0) xlon += 360.0;
 
     int mhemis = 0;
-    if (xlat >= 0.0f) {
-        if (xlon > 180.0f) {
+    if (xlat >= 0.0) {
+        if (xlon > 180.0) {
             mhemis = 3600;
-            xlon = 360.0f - xlon;
+            xlon = 360.0 - xlon;
         }
     } else {
-        if (xlon > 180.0f) {
+        if (xlon > 180.0) {
             mhemis = 10800;
-            xlon = 360.0f - xlon;
+            xlon = 360.0 - xlon;
         } else {
             mhemis = 7200;
         }
@@ -89,14 +89,14 @@ void regworld(int ityp, double cord1, double cord2, char *place, int *nreg) {
     double buf[40];
     for (int i = 0; i < 40; ++i) buf[i] = xnrlon[i0 + i];
 
-    int nval = (int)(buf[0] * 1000.0f + 1.1f);
+    int nval = (int)(buf[0] * 1000.0 + 1.1f);
     int idx = 1;
     for (; idx < nval; ++idx) {
         if (nlo < (int)buf[idx]) break;
     }
 
     double xreg = buf[idx - 1] - (int)buf[idx - 1];
-    *nreg = (int)(xreg * 1000.0f + 0.1f);
+    *nreg = (int)(xreg * 1000.0 + 0.1f);
     int i1 = indfe[*nreg];
     int i2 = indfe[*nreg + 1];
     int n = i2 - i1;
@@ -111,7 +111,7 @@ void matrinv(int n, const double *a, double *b) {
 
     int nn = n * n;
     for (int i = 1; i < nn; ++i) {
-        b[i] = 0.0f;
+        b[i] = 0.0;
     }
 
     int mm = 0;

@@ -18,18 +18,18 @@ void svdsoluk(double ain[][4], double bin[], int m, double eigmin,
         abort();
     }
 
-    double a[4][4] = {{0.0f}};
-    double b[4] = {0.0f};
-    double at[4][4] = {{0.0f}};
-    double wk[8][2] = {{0.0f}};
+    double a[4][4] = {{0.0}};
+    double b[4] = {0.0};
+    double at[4][4] = {{0.0}};
+    double wk[8][2] = {{0.0}};
 
     for (int i = 0; i < m; ++i) {
         for (int j = 0; j < m; ++j) {
             a[i][j] = ain[i][j];
         }
         b[i] = bin[i];
-        s[i] = 0.0f;
-        cov[i] = 0.0f;
+        s[i] = 0.0;
+        cov[i] = 0.0;
     }
 
     int ier = 0;
@@ -37,19 +37,19 @@ void svdsoluk(double ain[][4], double bin[], int m, double eigmin,
 
     alesubr(s, m, ale);
 
-    if (eigmin < 0.0f) {
+    if (eigmin < 0.0) {
         return;
     }
 
     int nfre = 0;
     for (int i = 0; i < m; ++i) {
-        x[i] = 0.0f;
+        x[i] = 0.0;
         if (s[i] > eigmin) {
             nfre++;
         } else {
-            s[i] = 0.0f;
+            s[i] = 0.0;
             for (int j = 0; j < m; ++j) {
-                a[j][i] = 0.0f;
+                a[j][i] = 0.0;
             }
         }
     }
@@ -61,7 +61,7 @@ void svdsoluk(double ain[][4], double bin[], int m, double eigmin,
     }
 
     for (int i = 0; i < m; ++i) {
-        double sum = 0.0f;
+        double sum = 0.0;
         for (int j = 0; j < nfre; ++j) {
             sum += a[i][j] * a[i][j] / (s[j] * s[j]);
         }

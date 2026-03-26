@@ -1,10 +1,4 @@
-#define IEQ 658
-#define INSHOT 50
-#define ITOTMODELS 2
-#define INLTOT 100
-#define IST 650
-#define ILIP (4 * IEQ + INSHOT + INLTOT + IST)
-#define INVA (ILIP - 1)
+#include "../include/globals.h"
 
 extern int nvar;
 extern int isingle;
@@ -46,10 +40,10 @@ void setupmatrixg(int neq, int i) {
     int obs = i - 1;
 
     for (j = 0; j < nvar; ++j) {
-        s[j] = 0.0f;
+        s[j] = 0.0;
     }
 
-    if (isingle != 0 && w[obs][ev] == 0.0f) {
+    if (isingle != 0 && w[obs][ev] == 0.0) {
         goto accumulate;
     }
 
@@ -65,7 +59,7 @@ void setupmatrixg(int neq, int i) {
 
     s[nni - 1] = 1.0f * scale[0];
     if (sphase[obs][ev] == 2.0f) {
-        s[nni - 1] = 0.0f;
+        s[nni - 1] = 0.0;
     }
 
     is1 = 0;
@@ -76,7 +70,7 @@ void setupmatrixg(int neq, int i) {
     s[nni - 1] = 1.0f * scale[6];
     kk1 = map2[neq - neqs - 1];
     if (nshfix == 1 && kk1 != 0) {
-        s[nni - 1] = 0.0f;
+        s[nni - 1] = 0.0;
     }
     if (nshcor == 0) {
         goto hypo_done;
@@ -84,7 +78,7 @@ void setupmatrixg(int neq, int i) {
     if (kk1 <= 0 || kk1 > ksta) {
         goto hypo_done;
     }
-    if (scale[4] == 0.0f) {
+    if (scale[4] == 0.0) {
         goto hypo_done;
     }
 
@@ -112,13 +106,13 @@ void setupmatrixg(int neq, int i) {
 
 hypo_done:
     k = 0;
-    if (zadj == 0.0f) {
-        dtdr[2] = 0.0f;
+    if (zadj == 0.0) {
+        dtdr[2] = 0.0;
     }
 
     if (neq <= neqs) {
         if (ifx[ev] == 1) {
-            dtdr[1] = 0.0f;
+            dtdr[1] = 0.0;
         }
         for (j = nn; j <= mm; ++j) {
             k += 1;
@@ -126,7 +120,7 @@ hypo_done:
         }
     }
 
-    if (scale[5] != 0.0f) {
+    if (scale[5] != 0.0) {
         k2 = iphase[obs][ev];
         if (k2 < 1) {
             k2 = 1;
@@ -142,16 +136,16 @@ hypo_done:
         k = 0;
         for (n = nf; n <= mf; ++n) {
             k += 1;
-            if (veladj == 0.0f) {
-                dtdv[k - 1] = 0.0f;
+            if (veladj == 0.0) {
+                dtdv[k - 1] = 0.0;
             }
-            if (vdamp[k2 - 1][k - 1] != 0.0f) {
+            if (vdamp[k2 - 1][k - 1] != 0.0) {
                 s[n - 1] = dtdv[k - 1] * scale[5] / vdamp[k2 - 1][k - 1];
             }
         }
     }
 
-    if (scale[4] == 0.0f) {
+    if (scale[4] == 0.0) {
         goto accumulate;
     }
 

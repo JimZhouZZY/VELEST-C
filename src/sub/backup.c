@@ -1,8 +1,7 @@
 #include <stdbool.h>
 #include <stdio.h>
 #include <stdlib.h>
-
-#define IEQ 658
+#include "../include/globals.h"
 
 typedef void (*chtop_backup_fn_t)(double x, double y, double *zmin,
                                   const char *topo1file, const char *topo2file);
@@ -72,10 +71,10 @@ void backup_model(
             b[jjj] /= 2.0f;
 
             if (k == 3) {
-                double zzz = 0.0f;
+                double zzz = 0.0;
                 e[k][i] -= b[jjj];
 
-                if (itopo > 0 && e[k][i] < 0.0f && chtop_fn != NULL) {
+                if (itopo > 0 && e[k][i] < 0.0 && chtop_fn != NULL) {
                     chtop_fn(-e[1][i], e[2][i], &zzz, topo1file,
                              topo2file);
                     if (e[k][i] < zzz) {
@@ -124,7 +123,7 @@ void backup_model(
                     fprintf(warnfp,
                             " Setting DVP from %5.2f to 0.0 and VP to vp(layer_above)+0.001\n",
                             b[bidx]);
-                    b[bidx] = 0.0f;
+                    b[bidx] = 0.0;
                     vp[i * nltot + k] = vp[i * nltot + (k - 1)] + 0.001f;
                 }
 
@@ -147,7 +146,7 @@ void backup_model(
 
         for (j = 0; j < nsta; ++j) {
             int m = map1[j];
-            cc[j] = 0.0f;
+            cc[j] = 0.0;
             if (m < 0 || m >= ksta1) {
                 continue;
             }
@@ -182,7 +181,7 @@ void backup_model(
 
             for (j = 0; j < nsta; ++j) {
                 int m = map1[j];
-                cc[j] = 0.0f;
+                cc[j] = 0.0;
                 if (m < 0 || m >= ksta2) {
                     continue;
                 }

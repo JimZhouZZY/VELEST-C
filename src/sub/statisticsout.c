@@ -1,10 +1,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <string.h>
-
-#define IEQ 658
-#define INLTOT 100
-#define IST 650
+#include "../include/globals.h"
 
 extern int neqs, nltot, nsta, noheadwave;
 extern int igap[IEQ], ihypoclayer[INLTOT], irefrlayer[INLTOT], irefllayer[INLTOT];
@@ -31,11 +28,11 @@ void statisticsout(void) {
         if (e[3][i] >= h[nltot - 1]) ihypoclayer[nltot - 1] += 1;
     }
 
-    double rlen = 0.0f;
+    double rlen = 0.0;
     for (int i = 0; i < nltot; ++i) rlen += refraylen[i];
 
     for (int i = 0; i < nltot; ++i) {
-        refraylen[i] = (rlen > 1.0e-5f) ? (100.0f * refraylen[i] / rlen) : 0.0f;
+        refraylen[i] = (rlen > 1.0e-5f) ? (100.0 * refraylen[i] / rlen) : 0.0;
         if (hitlay[i][0] >= 1.0f) {
             hitlay[i][1] /= hitlay[i][0];
             hitlay[i][2] /= hitlay[i][0];
@@ -74,11 +71,11 @@ void statisticsout(void) {
     fprintf(stdout, "                               ------\n");
     fprintf(stdout, " Total nr of    all    rays = %5d\n\n", itotal);
 
-    double err = (noheadwave > 0) ? ((sterr + direrr) / noheadwave) : 0.0f;
+    double err = (noheadwave > 0) ? ((sterr + direrr) / noheadwave) : 0.0;
     fprintf(stdout, " Straight and direct rays : %7.2f meters\n", err);
-    err = (irefr > 0) ? (refrerr / irefr) : 0.0f;
+    err = (irefr > 0) ? (refrerr / irefr) : 0.0;
     fprintf(stdout, " Refracted           rays : %7.2f meters\n", err);
-    err = (irefl > 0) ? (reflerr / irefl) : 0.0f;
+    err = (irefl > 0) ? (reflerr / irefl) : 0.0;
     fprintf(stdout, " Reflected           rays : %7.2f meters\n\n", err);
 
     if (itotal > 0) {
@@ -102,7 +99,7 @@ void statisticsout(void) {
 
     int lesseq1 = 0, mge6 = 0, nobslesseq1 = 0, nobsmge6 = 0;
     for (int i = 0; i < neqs; ++i) {
-        int mag = (int)lroundf(emag[i] * 10.0f);
+        int mag = (int)lroundf(emag[i] * 10.0);
         if (mag <= 10) { lesseq1++; nobslesseq1 += knobs[i]; }
         else if (mag < 60) { magnr[mag - 10]++; nobsnr[mag - 10] += knobs[i]; }
         else { mge6++; nobsmge6 += knobs[i]; }
@@ -115,7 +112,7 @@ void statisticsout(void) {
     fprintf(stdout, "MAG<= 1.0 (%3d) %.*s\n", lesseq1, (nobslesseq1 > 0) ? nobslesseq1 : 1, (nobslesseq1 > 0) ? cstari : " ");
 
     for (int i = 0; i < 49; ++i) {
-        double xmag = (10.0f + (i + 1)) / 10.0f;
+        double xmag = (10.0 + (i + 1)) / 10.0;
         if (magnr[i] > 0) nobsnr[i] = (int)lroundf((double)nobsnr[i] / (double)magnr[i]);
         if (nobsnr[i] > 50) nobsnr[i] = 51;
         fprintf(stdout, "MAG = %3.1f (%3d) %.*s\n", xmag, magnr[i], (nobsnr[i] > 0) ? nobsnr[i] : 1, (nobsnr[i] > 0) ? cstari : " ");
@@ -157,12 +154,12 @@ void statisticsout(void) {
     fprintf(stdout, "Stn#  Stn     RES          RES1          RES2         RES3         RES4\n");
 
     for (int i = 0; i < nsta; ++i) {
-        double res1 = (stnazires[i][1] > 0.0f) ? stnazires[i][0] / stnazires[i][1] : 0.0f;
-        double res2 = (stnazires[i][3] > 0.0f) ? stnazires[i][2] / stnazires[i][3] : 0.0f;
-        double res3 = (stnazires[i][5] > 0.0f) ? stnazires[i][4] / stnazires[i][5] : 0.0f;
-        double res4 = (stnazires[i][7] > 0.0f) ? stnazires[i][6] / stnazires[i][7] : 0.0f;
+        double res1 = (stnazires[i][1] > 0.0) ? stnazires[i][0] / stnazires[i][1] : 0.0;
+        double res2 = (stnazires[i][3] > 0.0) ? stnazires[i][2] / stnazires[i][3] : 0.0;
+        double res3 = (stnazires[i][5] > 0.0) ? stnazires[i][4] / stnazires[i][5] : 0.0;
+        double res4 = (stnazires[i][7] > 0.0) ? stnazires[i][6] / stnazires[i][7] : 0.0;
         double tot = stnazires[i][1] + stnazires[i][3] + stnazires[i][5] + stnazires[i][7];
-        if (tot > 0.0f) {
+        if (tot > 0.0) {
             double res0 = (stnazires[i][1] * res1 + stnazires[i][3] * res2 + stnazires[i][5] * res3 + stnazires[i][7] * res4) / tot;
             fprintf(stdout, "%3d   %4s %7.2f(%4d)%7.2f(%4d)%7.2f(%4d)%7.2f(%4d)%7.2f(%4d)\n",
                     i + 1, stn[i], res0, (int)lroundf(tot),

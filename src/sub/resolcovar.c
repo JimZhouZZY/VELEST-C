@@ -2,13 +2,7 @@
 #include <stdio.h>
 #include <string.h>
 #include <stdbool.h> 
-
-#define IEQ 658
-#define INSHOT 50
-#define INLTOT 100
-#define IST 650
-#define ILIP (4 * IEQ + INSHOT + INLTOT + IST)
-#define INVA (ILIP - 1)
+#include "../include/globals.h"
 
 extern bool single_turbo;
 extern int isingle;
@@ -52,7 +46,7 @@ void resolcovar(double davari) {
     int n2 = n1 + nshot;
     int n3 = n2 + nltot;
 
-    double rdiag[100] = {0.0f};
+    double rdiag[100] = {0.0};
 
     for (int row_index = 0; row_index < nef; ++row_index) {
         for (int col_index = 0; col_index < nvar; ++col_index) {
@@ -108,8 +102,8 @@ void resolcovar(double davari) {
     }
 
     if (isingle != 0) {
-        double spread1 = 0.0f;
-        double spread2 = 0.0f;
+        double spread1 = 0.0;
+        double spread2 = 0.0;
 
         spreadd(rc, 4, &spread1);
         spread = spread1;
@@ -120,20 +114,20 @@ void resolcovar(double davari) {
                     r3[row][column] = rc[row][column];
                 }
             }
-            double spread3 = 0.0f;
+            double spread3 = 0.0;
             spreadd((double (*)[4])r3, 3, &spread3);
             spread = spread3;
         }
 
         if (ifixsolution == 9) {
-            double spread4 = 0.0f;
+            double spread4 = 0.0;
             spreadd((double (*)[4])rc, 1, &spread4);
             spread = spread4;
         }
 
         spreadb(rc, 4, &spread2);
 
-        double size = 0.0f;
+        double size = 0.0;
         for (int index = 0; index < 4; ++index) {
             size += covc[index][index];
         }
@@ -143,7 +137,7 @@ void resolcovar(double davari) {
                     spread, spread2, size);
         }
 
-        double avresol = 0.0f;
+        double avresol = 0.0;
         for (int index = 0; index < nef; ++index) {
             avresol += rc[index][index];
         }

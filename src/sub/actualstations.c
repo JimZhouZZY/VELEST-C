@@ -1,8 +1,6 @@
 #include <stdbool.h>
 #include <stdio.h>
-
-#define IEQ 658
-#define IST 650
+#include "../include/globals.h"
 
 extern int nsta, legs, nsp, nstaeff;
 extern int knobs[IEQ], istm[IST][IEQ], nactualsta[IST];
@@ -34,7 +32,7 @@ void actualstations(void) {
             }
             nactualsta[sta] += 1;
             if (nsp == 2) {
-                if (sphase[k][i] == 0.0f) nobsp[sta] += 1;
+                if (sphase[k][i] == 0.0) nobsp[sta] += 1;
                 if (sphase[k][i] == 1.0f) nobss[sta] += 1;
             }
             nofreadings += 1;

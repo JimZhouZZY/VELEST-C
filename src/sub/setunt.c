@@ -15,13 +15,13 @@ void setunt(int nitt, int invertratio, int nsinv, int *icount,
     scale[1] = sqrtf(othet / xythet);
     scale[2] = scale[1];
     scale[3] = sqrtf(othet / zthet);
-    scale[4] = 0.0f;
+    scale[4] = 0.0;
 
     if (nsinv != 0 && *icount == 0) {
         scale[4] = sqrtf(othet / stathet);
     }
 
-    scale[5] = 0.0f;
+    scale[5] = 0.0;
     if (*icount == 0) {
         scale[5] = sqrtf(othet / vthet);
     }

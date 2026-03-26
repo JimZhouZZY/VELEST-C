@@ -9,10 +9,10 @@ void reflect1(int nl, const double v[], const double vsq[], const double thk[],
     (void)z;
 
     *ierr = 0;
-    *dtddrefl = 0.0f;
-    *dtdhrefl = 0.0f;
+    *dtddrefl = 0.0;
+    *dtdhrefl = 0.0;
 
-    double div[100] = {0.0f};
+    double div[100] = {0.0};
 
     if (jl > mll) {
         *ierr = -1;
@@ -33,7 +33,7 @@ void reflect1(int nl, const double v[], const double vsq[], const double thk[],
         div[m] = fac * thk[m];
     }
 
-    double depth = 0.0f;
+    double depth = 0.0;
     for (int i = 0; i <= mll; ++i) {
         depth += div[i];
     }
@@ -77,10 +77,10 @@ void reflect1(int nl, const double v[], const double vsq[], const double thk[],
         delb += div[l] * ub / ubdiv;
     }
 
-    double del = 0.0f;
-    double x = 0.0f;
-    double u = 0.0f;
-    double usq = 0.0f;
+    double del = 0.0;
+    double x = 0.0;
+    double u = 0.0;
+    double usq = 0.0;
 
     for (int kount = 0; kount < 25; ++kount) {
         if ((delb - dela) < 0.02f) {
@@ -104,7 +104,7 @@ void reflect1(int nl, const double v[], const double vsq[], const double thk[],
             break;
         }
 
-        if (xtest < 0.0f) {
+        if (xtest < 0.0) {
             xa = x;
             dela = del;
         } else {
@@ -113,7 +113,7 @@ void reflect1(int nl, const double v[], const double vsq[], const double thk[],
         }
     }
 
-    if (del == 0.0f) {
+    if (del == 0.0) {
         del = x;
     }
 

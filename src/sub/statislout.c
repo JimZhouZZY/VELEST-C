@@ -1,10 +1,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <string.h>
-
-#define IEQ 658
-#define IST 650
-#define MAXOBSPEREVENT 180
+#include "../include/globals.h"
 
 extern int iabort, ifixsolution, icoordsystem, nvar, nobswithw0, nreg, nmag, nitt, nsp;
 extern int iyr[IEQ], imo[IEQ], iday[IEQ], ihr[IEQ], imin[IEQ], igap[IEQ], iain[IST], idelta[IST], kpwt[IST][IEQ];
@@ -35,11 +32,11 @@ void statislout(void) {
 
     double sec = e[0][0];
     int nin = imin[0];
-    if (sec < 0.0f) { sec += 60.0f; nin -= 1; }
-    if (sec > 60.0f) { sec -= 60.0f; nin += 1; }
+    if (sec < 0.0) { sec += 60.0; nin -= 1; }
+    if (sec > 60.0) { sec -= 60.0; nin += 1; }
     if (nin < 0) { nin += 60; ihr[0] -= 1; }
 
-    double xlat = 0.0f, xlon = 0.0f;
+    double xlat = 0.0, xlon = 0.0;
     if (icoordsystem == 2) {
         geoko(&xlat, &xlon, -e[1][0], e[2][0], 1);
         xlon = -xlon;
@@ -47,16 +44,16 @@ void statislout(void) {
         sdc(&xlat, &xlon, e[1][0], e[2][0], 1);
     }
     char cns = 'N', cew = 'W';
-    if (xlat < 0.0f) { cns = 'S'; xlat = -xlat; }
-    if (xlon < 0.0f) { cew = 'E'; xlon = -xlon; }
+    if (xlat < 0.0) { cns = 'S'; xlat = -xlat; }
+    if (xlon < 0.0) { cew = 'E'; xlon = -xlon; }
 
     int idmin = 999;
-    double aar = 0.0f;
+    double aar = 0.0;
     for (int k = 0; k < knobs[0]; ++k) {
         double delta = sqrtf((e[1][0] - d[k][0][0]) * (e[1][0] - d[k][0][0]) +
                             (e[2][0] - d[k][1][0]) * (e[2][0] - d[k][1][0]));
         idelta[k] = (int)lroundf(delta);
-        if (w[k][0] > 0.0f) {
+        if (w[k][0] > 0.0) {
             if (idelta[k] < idmin) idmin = idelta[k];
             aar += fabs(res[k][0]) * w[k][0];
         }
@@ -78,8 +75,8 @@ void statislout(void) {
     int no = knobs[0] - nobswithw0;
     double ofd = e[3][0];
     double tfd = 2.0f * e[3][0];
-    if (ofd < 10.0f) ofd = 10.0f;
-    if (tfd < 30.0f) tfd = 30.0f;
+    if (ofd < 10.0) ofd = 10.0;
+    if (tfd < 30.0) tfd = 30.0;
     if ((igap[0] <= 180) || ((no >= 4) && (idmin <= 100))) jd = 3;
     if ((igap[0] <= 135) || ((no >= 5) && (idmin <= tfd))) jd = 2;
     if ((igap[0] <= 90) || ((no >= 6) && (idmin <= ofd))) jd = 1;
@@ -112,22 +109,22 @@ void statislout(void) {
 
         double xstn = d[k][0][0], ystn = d[k][1][0], xhyp = e[1][0], yhyp = e[2][0];
         double azi = 57.296f * atan2f(xhyp - xstn, yhyp - ystn);
-        if (azi < 0.0f) azi += 360.0f;
-        azi = fmodf(azi + 180.0f, 360.0f);
+        if (azi < 0.0) azi += 360.0;
+        azi = fmodf(azi + 180.0, 360.0);
         int iazi = (int)lroundf(azi);
 
         double tobs = pt[k][0] - e[0][0];
-        if (tobs < 0.0f) pt[k][0] += 60.0f;
-        if (tobs > 60.0f) pt[k][0] -= 60.0f;
+        if (tobs < 0.0) pt[k][0] += 60.0;
+        if (tobs > 60.0) pt[k][0] -= 60.0;
         tobs = pt[k][0] - e[0][0];
 
-        if (tcalc[k] < 0.0f) tcalc[k] += 60.0f;
-        if (tcalc[k] > 60.0f) tcalc[k] -= 60.0f;
+        if (tcalc[k] < 0.0) tcalc[k] += 60.0;
+        if (tcalc[k] > 60.0) tcalc[k] -= 60.0;
 
         double tcorr = ptcor[istm[k][0]];
         if (nsp == 2 && sphase[k][0] == 1.0f) tcorr = stcor[istm[k][0]];
         if (nsp == 3 && sphase[k][0] == 1.0f) tcorr *= vpvs;
-        if (sphase[k][0] == 2.0f) tcorr = 0.0f;
+        if (sphase[k][0] == 2.0f) tcorr = 0.0;
 
         double studres = res[k][0] / sqrtf(fmaxf(1.0e-6f, 1.0f - drm[k][k]));
         if (studres > 999.0f) studres = 999.999f;

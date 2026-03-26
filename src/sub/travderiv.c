@@ -2,10 +2,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-#define IEQ 658
-#define IST 650
-#define INRPMAX 200
+#include "../include/globals.h"
 
 extern int isingle;
 extern int iturbo;
@@ -32,18 +29,18 @@ void travderiv(const char *raytype, int nl_local, int mll,
                const double rp[3][200], int nrp,
                double x2[], double y2[], double z2[], double ss[],
                double r1, double r2, int ievent, int inobs) {
-    double f[100] = {0.0f};
-    double zmax = 0.0f;
+    double f[100] = {0.0};
+    double zmax = 0.0;
     int jndex = 0;
 
     if (!(isingle != 0 && iturbo == 1)) {
         for (int ii = 0; ii < nl_local; ++ii) {
-            dtdv[ii] = 0.0f;
+            dtdv[ii] = 0.0;
         }
     }
 
     for (int ii = 0; ii < 3; ++ii) {
-        dtdr[ii] = 0.0f;
+        dtdr[ii] = 0.0;
     }
 
     if (ifixsolution == 9) {
@@ -56,7 +53,7 @@ void travderiv(const char *raytype, int nl_local, int mll,
         return;
     }
 
-    if (isingle != 0 && w[obs][ev] == 0.0f) {
+    if (isingle != 0 && w[obs][ev] == 0.0) {
         return;
     }
 
@@ -95,7 +92,7 @@ void travderiv(const char *raytype, int nl_local, int mll,
             for (int j = 0; j < nl_local; ++j) {
                 f[j] = 1.0f;
                 if (j >= jl) f[j] = 2.0f;
-                if (j > jb) f[j] = 0.0f;
+                if (j > jb) f[j] = 0.0;
             }
 
             for (int j = 0; j < jb; ++j) {
@@ -129,7 +126,7 @@ void travderiv(const char *raytype, int nl_local, int mll,
             }
 
             int idownward = 0;
-            if (z2[j] > 0.0f) idownward = 1;
+            if (z2[j] > 0.0) idownward = 1;
             if (j == (nrp - 2) && idownward == 1) idownward = 0;
 
             if (idownward == 1) {
@@ -154,7 +151,7 @@ void travderiv(const char *raytype, int nl_local, int mll,
     }
 
     if (ifixsolution == 1) {
-        dtdr[2] = 0.0f;
+        dtdr[2] = 0.0;
     }
 
     if (nrp > inrpmax) {

@@ -37,10 +37,10 @@ void raypath(int nx, int ny, int nz,
              double *sterr, double *direrr, double *refrerr, double *reflerr,
              double *dtddrefl, double *dtdhrefl) {
 retry:
-    *sterr = 0.0f;
-    *direrr = 0.0f;
-    *refrerr = 0.0f;
-    *reflerr = 0.0f;
+    *sterr = 0.0;
+    *direrr = 0.0;
+    *refrerr = 0.0;
+    *reflerr = 0.0;
 
     if (ze < d[0] || zr < d[0]) {
         abort();
@@ -70,9 +70,9 @@ retry:
     }
 
     if (*jl == nl - 1) {
-        double tdir = 0.0f;
-        double salpha = 0.0f;
-        double deljl = 0.0f;
+        double tdir = 0.0;
+        double salpha = 0.0;
+        double deljl = 0.0;
         direct1(nl, v, vsq, thk, *jl, *tkj, delta, depth, &tdir, &salpha, &deljl);
         dirpath(xe, ye, ze, xr, yr, zr, delta, nl, v, vsq, thk, *jl, *tkj, salpha, deljl, rp, nrp, direrr);
         *nrtn = 2;
@@ -81,8 +81,8 @@ retry:
     }
 
     if (*mll > 0) {
-        double trefl = 0.0f;
-        double ain = 0.0f;
+        double trefl = 0.0;
+        double ain = 0.0;
         int ierr = 0;
         reflect1(nl, v, vsq, thk, *jl, *tkj, delta, depth, *mll, &trefl, &ain, &ierr, dtddrefl, dtdhrefl);
         if (ierr != 0) {
@@ -96,7 +96,7 @@ retry:
     }
 
     int kk = -1;
-    double tref = 0.0f, didjkk = 0.0f, xovmax = 0.0f;
+    double tref = 0.0, didjkk = 0.0, xovmax = 0.0;
     refract(nl, v, vsq, thk, *jl, *tkj, delta, &kk, &tref, &didjkk, &xovmax);
 
     if (delta > xovmax) {
@@ -120,9 +120,9 @@ retry:
         return;
     }
 
-    double tdir = 0.0f;
-    double salpha = 0.0f;
-    double deljl = 0.0f;
+    double tdir = 0.0;
+    double salpha = 0.0;
+    double deljl = 0.0;
     direct1(nl, v, vsq, thk, *jl, *tkj, delta, depth, &tdir, &salpha, &deljl);
 
     if (tref < tdir) {

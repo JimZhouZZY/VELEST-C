@@ -22,10 +22,10 @@ void lsvg1(double a, double b, double *dcos, double *dsin, double *sig) {
         *dsin = b / (*sig);
     } else {
         /* Use B as main component or handle zero case */
-        if (b == 0.0f) {
+        if (b == 0.0) {
             /* Both A and B are effectively zero */
-            *sig = 0.0f;
-            *dcos = 0.0f;
+            *sig = 0.0;
+            *dcos = 0.0;
             *dsin = 1.0f;
         } else {
             /* B is main component */

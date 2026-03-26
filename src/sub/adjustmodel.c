@@ -1,14 +1,7 @@
 #include <math.h>
 #include <stdbool.h>
 #include <stdio.h>
-
-#define IEQ 658
-#define INSHOT 50
-#define ITOTMODELS 2
-#define INLTOT 100
-#define IST 650
-#define ILIP (4 * IEQ + INSHOT + INLTOT + IST)
-#define INVA (ILIP - 1)
+#include "../include/globals.h"
 
 extern int legs, neqs, nshot, nitt, isingle, itopo, ifixsolution;
 extern int nsta, nsp, ksta, nltot, nmod, lowveloclay;
@@ -47,11 +40,11 @@ void adjustmodel(double damp) {
             e[j][i] = e[j][i] + b[jj];
         }
 
-        if (e[0][i] < 0.0f) {
+        if (e[0][i] < 0.0) {
             int itime = iminold;
             timeclear(&iyr[i], &imo[i], &iday[i], &ihr[i], &imin[i], &e[0][i], &itime);
             for (int j = 0; j < knobs[i] && j < IST; ++j) {
-                pt[j][i] = pt[j][i] + (double)(iminold - itime) * 60.0f;
+                pt[j][i] = pt[j][i] + (double)(iminold - itime) * 60.0;
             }
         }
 
@@ -64,7 +57,7 @@ void adjustmodel(double damp) {
             if (nitt < 2) {
                 isconstrain[0] = 1;
                 e[3][i] = e[3][i] - b[3];
-                b[3] = 0.0f;
+                b[3] = 0.0;
             }
 
             if (igap[0] > 250) {
@@ -82,13 +75,13 @@ void adjustmodel(double damp) {
                         iconstrain[i] = 3;
                     }
                     e[3][i] = e[3][i] - b[3];
-                    b[3] = 0.0f;
+                    b[3] = 0.0;
                 }
             }
 
             if (fabs(b[3]) > zadj) {
                 isconstrain[2] = 1;
-                if (b[3] > 0.0f) {
+                if (b[3] > 0.0) {
                     e[3][i] = e[3][i] - b[3] + zadj;
                     b[3] = zadj;
                 } else {
@@ -99,7 +92,7 @@ void adjustmodel(double damp) {
         } else {
             if (i < neqs && fabs(b[jj]) > zadj) {
                 iconstrain[i] = 1;
-                if (b[jj] > 0.0f) {
+                if (b[jj] > 0.0) {
                     e[3][i] = e[3][i] - b[jj] + zadj;
                     b[jj] = zadj;
                 } else {
@@ -110,21 +103,21 @@ void adjustmodel(double damp) {
         }
 
         if (itopo > 0) {
-            if (e[3][i] < 0.0f) {
+            if (e[3][i] < 0.0) {
                 chtop(-e[1][i], e[2][i], &zmin, topo1file, topo2file);
             } else {
-                zmin = 0.0f;
+                zmin = 0.0;
             }
         }
 
-        if (e[3][i] < zmin || (ifixsolution > 0 && e[3][i] <= 0.0f)) {
+        if (e[3][i] < zmin || (ifixsolution > 0 && e[3][i] <= 0.0)) {
             b[jj] = b[jj] - (e[3][i] - zmin);
             e[3][i] = zmin;
             iconstrain[i] = 1;
         }
     }
 
-    if (scale[5] != 0.0f) {
+    if (scale[5] != 0.0) {
         if (!single_turbo) {
             FILE *out = fm_ptr ? fm_ptr : stdout;
             fprintf(out, "\n doing velocity adjustments now...\n");
@@ -150,7 +143,7 @@ void adjustmodel(double damp) {
                         }
                         fprintf(stderr, " WARNING: Tried to introduce a low-velocity-layer! (Layer %2d)\n", kj);
                         fprintf(stderr, " Setting DVP from %5.2f to 0.0 and VP to vp(layer_above)+0.001\n", b[jjj]);
-                        b[jjj] = 0.0f;
+                        b[jjj] = 0.0;
                         vp[i][kj - 1] = vp[i][kj - 2] + 0.001f;
                     }
                 }
@@ -159,7 +152,7 @@ void adjustmodel(double damp) {
         }
     }
 
-    if (scale[4] != 0.0f) {
+    if (scale[4] != 0.0) {
         if (!single_turbo) {
             FILE *out = fm_ptr ? fm_ptr : stdout;
             fprintf(out, "\n doing station-correction adjustments...\n\n");

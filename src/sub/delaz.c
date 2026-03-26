@@ -49,8 +49,8 @@ void delaz(double alat, double alon, double blat, double blon,
     /* Convert angular measurements back to degrees */
     *del = (double)(delr / rad);
     *az = (double)(azr / rad);
-    if (*az < 0.0f) {
-        *az = 360.0f + *az;
+    if (*az < 0.0) {
+        *az = 360.0 + *az;
     }
     
     /* Compute distance in kilometers */

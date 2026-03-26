@@ -26,7 +26,7 @@ void rejectobs(int i, int nobs, int *iresflag) {
     int knobst, iii, iobswt;
     
     /* Check if weight already zero */
-    if (w[nobs - 1][i] == 0.0f) {
+    if (w[nobs - 1][i] == 0.0) {
         return;
     }
     
@@ -37,12 +37,12 @@ void rejectobs(int i, int nobs, int *iresflag) {
     
     /* Re-normalize weights for this event */
     nobswithw0++;
-    wsum = 0.0f;
+    wsum = 0.0;
     knobst = knobs[i];
     
     for (iii = 0; iii < knobst; iii++) {
         iobswt = kpwt[iii][i];
-        if (iobswt < 4 && w[iii][i] != 0.0f) {
+        if (iobswt < 4 && w[iii][i] != 0.0) {
             /* Apply phase-specific weight scaling */
             if (sphase[iii][i] == 1.0f || sphase[iii][i] == 2.0f) {
                 w[iii][i] = swtfac * 1.0f / (double)(1 << (iobswt * 2));  /* S-phase */
@@ -50,11 +50,11 @@ void rejectobs(int i, int nobs, int *iresflag) {
                 w[iii][i] = 1.0f / (double)(1 << (iobswt * 2));  /* P or M phase */
             }
         } else {
-            w[iii][i] = 0.0f;  /* Weight 4 or invalid */
+            w[iii][i] = 0.0;  /* Weight 4 or invalid */
         }
         
         if (iii == (nobs - 1)) {
-            w[iii][i] = 0.0f;  /* Current observation always rejected */
+            w[iii][i] = 0.0;  /* Current observation always rejected */
         }
         wsum += w[iii][i];
     }

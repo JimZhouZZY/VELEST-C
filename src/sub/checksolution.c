@@ -14,8 +14,8 @@ extern void gapcalc(int i);
 extern void avresistatist(void);
 
 void checksolution(int *istopflag, int *better) {
-    static double datvar = 0.0f;
-    static double xmsqrs2 = 0.0f;
+    static double datvar = 0.0;
+    static double xmsqrs2 = 0.0;
 
     FILE *logfp = (fm_ptr != NULL) ? fm_ptr : stdout;
 

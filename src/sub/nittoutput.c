@@ -1,11 +1,7 @@
 #include <math.h>
 #include <stdio.h>
 #include <stdbool.h>
-
-#define IEQ 658
-#define INLTOT 100
-#define ITOTMODELS 2
-#define IST 650
+#include "../include/globals.h"
 
 extern int legs;
 extern int neqs;
@@ -39,9 +35,9 @@ extern double stcor[IST];
 extern char stn[IST][5];
 
 void nittoutput(double damp) {
-    double avdt = 0.0f, avdx = 0.0f, avdy = 0.0f, avdz = 0.0f;
-    double aavdt = 0.0f, aavdx = 0.0f, aavdy = 0.0f, aavdz = 0.0f;
-    double cc[IST] = {0.0f};
+    double avdt = 0.0, avdx = 0.0, avdy = 0.0, avdz = 0.0;
+    double aavdt = 0.0, aavdx = 0.0, aavdy = 0.0, aavdz = 0.0;
+    double cc[IST] = {0.0};
 
     FILE *out = fm_ptr ? fm_ptr : stdout;
 
@@ -105,7 +101,7 @@ void nittoutput(double damp) {
         fprintf(out, "\nNO step length damping applied\n\n");
     }
 
-    if (scale[4] != 0.0f) {
+    if (scale[4] != 0.0) {
         int j1 = 4 * neqs + nshot + nltot;
         int ksta1 = (nsp == 2) ? (ksta / 2) : ksta;
 
@@ -113,7 +109,7 @@ void nittoutput(double damp) {
         fprintf(out, "  stn  ptcor  dpcor\n");
 
         for (int j = 0; j < nsta; ++j) {
-            cc[j] = 0.0f;
+            cc[j] = 0.0;
             if (map1[j] > 0 && map1[j] <= ksta1) {
                 int kk1 = j1 + map1[j] - 1;
                 cc[j] = b[kk1];
@@ -127,7 +123,7 @@ void nittoutput(double damp) {
             fprintf(out, " Adjusted station corrections:\n");
             fprintf(out, "  stn  stcor  dscor\n");
             for (int j = 0; j < nsta; ++j) {
-                cc[j] = 0.0f;
+                cc[j] = 0.0;
                 if (map1[j] > 0 && map1[j] <= ksta2) {
                     int kk1 = j1 + map1[j] - 1;
                     cc[j] = b[kk1];

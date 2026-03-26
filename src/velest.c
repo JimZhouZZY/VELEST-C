@@ -3,15 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-#define IEQ 658
-#define INSHOT 50
-#define ITOTMODELS 2
-#define INLTOT 100
-#define IST 650
-#define MAXOBSPEREVENT 180
-#define ILIP (4 * IEQ + INSHOT + INLTOT + IST)
-#define INVA (ILIP - 1)
+#include "include/globals.h"
 
 extern int nitt, nvar, istopflag, nittc, icount, ibackups, iabort;
 extern int legs, neqs, nshot, nsinv, invertratio, ksta, nltot, iturbo, ifixsolution;
@@ -102,11 +94,11 @@ int main(void) {
     int ier = 0;
     int itime = 0;
     int iminold = 0;
-    double damp = 0.0f;
-    double cpusec = 0.0f;
-    double cpmintot = 0.0f;
-    double d1 = 0.0f, d2 = 0.0f;
-    double xlat = 0.0f, xlon = 0.0f;
+    double damp = 0.0;
+    double cpusec = 0.0;
+    double cpmintot = 0.0;
+    double d1 = 0.0, d2 = 0.0;
+    double xlat = 0.0, xlon = 0.0;
     char ctime[21] = {0};
 
     cputimer(&cpusec);
@@ -135,12 +127,12 @@ single_event_loop:
     setunt(1, invertratio, nsinv, &icount, xythet, stathet, othet, vthet, zthet, scale);
     detnofunknowns();
 
-    for (int j = 0; j < INVA * ILIP / 2; ++j) g[j] = 0.0f;
-    for (int kk = 0; kk < nvar; ++kk) rht[kk] = 0.0f;
+    for (int j = 0; j < INVA * ILIP / 2; ++j) g[j] = 0.0;
+    for (int kk = 0; kk < nvar; ++kk) rht[kk] = 0.0;
 
     for (int i = 1; i <= legs; ++i) {
-        avres[i - 1] = 0.0f;
-        rms[i - 1] = 0.0f;
+        avres[i - 1] = 0.0;
+        rms[i - 1] = 0.0;
         inputdata(i);
         k = knobs[i - 1];
         if (k == -1) goto single_event_loop;
@@ -161,7 +153,7 @@ single_event_loop:
 
     actualstations();
     for (int col = 1; col <= 4; ++col) storeg(col, col);
-    if (scale[5] != 0.0f) {
+    if (scale[5] != 0.0) {
         int i1 = 4 * neqs + nshot + 1;
         int j1 = i1 + nltot - 1;
         int ii = 4;
@@ -212,12 +204,12 @@ forward_after_adjust:
     else setunt(nitt, invertratio, nsinv, &icount, xythet, stathet, othet, vthet, zthet, scale);
 
     detnofunknowns();
-    for (int j = 0; j < INVA * ILIP / 2; ++j) g[j] = 0.0f;
-    for (int kk = 0; kk < nvar; ++kk) rht[kk] = 0.0f;
+    for (int j = 0; j < INVA * ILIP / 2; ++j) g[j] = 0.0;
+    for (int kk = 0; kk < nvar; ++kk) rht[kk] = 0.0;
 
     for (int i = 1; i <= legs; ++i) {
-        avres[i - 1] = 0.0f;
-        rms[i - 1] = 0.0f;
+        avres[i - 1] = 0.0;
+        rms[i - 1] = 0.0;
         int kkobs = knobs[i - 1];
         for (int l = 1; l <= kkobs; ++l) {
             traveltime(i, l, iresflag);
@@ -240,7 +232,7 @@ forward_after_adjust:
     }
 
     for (int col = 1; col <= 4; ++col) storeg(col, col);
-    if (scale[5] != 0.0f) {
+    if (scale[5] != 0.0) {
         int i1 = 4 * neqs + nshot + 1;
         int j1 = i1 + nltot - 1;
         int ii = 4;
@@ -272,7 +264,7 @@ forward_after_adjust:
     if (!single_turbo) nittoutput(damp);
 
     if (ibackups == 4) goto final_solution;
-    if (steplen > 0.0f && steplen < delmin) goto final_solution;
+    if (steplen > 0.0 && steplen < delmin) goto final_solution;
     if (nitt == ittmax) goto final_solution;
     if (isingle != 0 && istopflag == 1) goto final_solution;
 
@@ -343,7 +335,7 @@ final_solution:
     if (isingle == 0) statisticsout();
 
     cputimer(&cpusec);
-    cpmintot = cpusec / 60.0f;
+    cpmintot = cpusec / 60.0;
     (void)cpmintot;
 
     if (isingle == 0) {
@@ -385,15 +377,15 @@ after_iterations:
         iresflag = 0;
         nittc = 0;
         ibackups = 0;
-        ale[0] = 0.0f;
+        ale[0] = 0.0;
         for (int ii = 0; ii < 3; ++ii) isconstrain[ii] = 0;
         iconstrain[0] = 0;
-        emag[0] = 0.0f;
+        emag[0] = 0.0;
         nmag = 0;
         for (int ii = 0; ii < knobs[0]; ++ii) {
-            xmagni[ii] = 0.0f;
-            amx[ii] = 0.0f;
-            prx[ii] = 0.0f;
+            xmagni[ii] = 0.0;
+            amx[ii] = 0.0;
+            prx[ii] = 0.0;
             istm[ii][0] = 0;
         }
         ifixsolution = 0;

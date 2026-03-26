@@ -60,7 +60,7 @@ void ebell(double yl, double xb, double *l, double *b, double *my) {
     i = 7;
     q = a[i] * rz[i];
     p = a[i] * qz[i];
-    *my = 0.0f;
+    *my = 0.0;
     
     while (i > 0) {
         i--;

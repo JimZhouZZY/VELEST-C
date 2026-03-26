@@ -47,8 +47,8 @@ void ufwabo(int isecpendel, double seismkonst, double seismdamp, double voltgain
     const double zpi = 6.28319f;
     const double complex j = I;
 
-    double t02 = 0.0f;
-    double t01 = 0.0f;
+    double t02 = 0.0;
+    double t01 = 0.0;
     if (isecpendel == 1) {
         t02 = 11.9f;
         t01 = 3.7f;
@@ -88,17 +88,17 @@ void ufwabo(int isecpendel, double seismkonst, double seismdamp, double voltgain
     if (strcmp(ifilter, "AD") == 0) {
         G = G * hp1(om) * b6(om);
         double gain = 16.0f;
-        G = G / 10.0f;
+        G = G / 10.0;
         G = G * gain;
     }
 
     if (iampltype == 2) {
-        G = G / 1000.0f;
+        G = G / 1000.0;
     } else if (iampltype == 1) {
         double twa = 0.8f;
         double o0w = zpi / twa;
         double hw = 0.78f;
-        double vwa = 2800.0f;
+        double vwa = 2800.0;
         G = G / (om2 * vwa / (o0w * o0w + 2.0f * jom * o0w * hw - om2));
     }
 

@@ -8,7 +8,7 @@ void spreadb(const double *r, int m, double *spread) {
         return;
     }
 
-    *spread = 0.0f;
+    *spread = 0.0;
     for (i = 0; i < m; ++i) {
         for (j = 0; j < m; ++j) {
             double diff = (double)(i - j);

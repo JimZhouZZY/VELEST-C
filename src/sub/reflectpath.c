@@ -60,7 +60,7 @@ void reflectpath(double xe, double ye, double ze, double xr, double yr, double z
     double dx = rp[0][last] - xr;
     double dy = rp[1][last] - yr;
     double dz = rp[2][last] - zr;
-    *reflerr = sqrtf(dx * dx + dy * dy + dz * dz) * 1000.0f;
+    *reflerr = sqrtf(dx * dx + dy * dy + dz * dz) * 1000.0;
 
     rp[0][last] = xr;
     rp[1][last] = yr;

@@ -8,7 +8,7 @@
 #include <stddef.h>
 
 void luelmp(double a[], double b[], int n, double x[]) {
-    const double zero = 0.0f;
+    const double zero = 0.0;
     double t;
     int ip = 0;
     int iw = 0;

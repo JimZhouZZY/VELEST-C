@@ -1,10 +1,7 @@
 #include <math.h>
 #include <stdbool.h>
 #include <stdio.h>
-
-#define IST 650
-#define IEQ 658
-#define MAX_OBS IST
+#include "../include/globals.h"
 
 extern bool single_turbo;
 extern int isingle;
@@ -34,7 +31,7 @@ extern void gapcalc(int i);
 extern FILE *fm_cnvfile;
 
 void finalhypocout(void) {
-    double tt[IST] = {0.0f};
+    double tt[IST] = {0.0};
     char phzz[IST] = {0};
 
     if (!single_turbo) {
@@ -42,9 +39,9 @@ void finalhypocout(void) {
     }
 
     for (int i = 0; i < legs; ++i) {
-        double xlat = 0.0f;
-        double xlon = 0.0f;
-        double xxx = 0.0f;
+        double xlat = 0.0;
+        double xlon = 0.0;
+        double xxx = 0.0;
         char cns = 'N';
         char cew = 'W';
 
@@ -57,23 +54,23 @@ void finalhypocout(void) {
             xxx = e[1][i];
         }
 
-        if (xlat < 0.0f) {
+        if (xlat < 0.0) {
             cns = 'S';
             xlat = -xlat;
         }
-        if (xlon < 0.0f) {
+        if (xlon < 0.0) {
             cew = 'E';
             xlon = -xlon;
         }
 
         double sec = e[0][i];
         int nin = imin[i];
-        while (sec < 0.0f) {
-            sec += 60.0f;
+        while (sec < 0.0) {
+            sec += 60.0;
             nin--;
         }
-        while (sec >= 60.0f) {
-            sec -= 60.0f;
+        while (sec >= 60.0) {
+            sec -= 60.0;
             nin++;
         }
         if (nin < 0) {

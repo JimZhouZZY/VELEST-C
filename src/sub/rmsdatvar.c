@@ -1,9 +1,7 @@
 #include <math.h>
 #include <stdbool.h>
 #include <stdio.h>
-
-#define IEQ 658
-#define IST 650
+#include "../include/globals.h"
 
 extern int legs;
 extern int nitt;
@@ -27,18 +25,18 @@ extern FILE *fm_ptr;
 
 void rmsdatvar(void) {
     int knobst = 0;
-    double tres = 0.0f;
+    double tres = 0.0;
     FILE *logfp = (fm_ptr != NULL) ? fm_ptr : stdout;
 
-    davar1 = 0.0f;
-    xmsqrs1 = 0.0f;
+    davar1 = 0.0;
+    xmsqrs1 = 0.0;
 
     for (int i = 0; i < legs; ++i) {
         int j2 = knobs[i];
         knobst += j2;
 
         for (int j = 0; j < j2; ++j) {
-            if (w[j][i] <= 0.0f) {
+            if (w[j][i] <= 0.0) {
                 continue;
             }
             avres[i] += res[j][i] * w[j][i];

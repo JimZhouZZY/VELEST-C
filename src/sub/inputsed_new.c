@@ -136,7 +136,7 @@ process_event:
 
         if (itrial > 0) {
             for (int i = 0; i < *nobs; ++i) {
-                if (iwt[i] < 5) sec[i] = (itime1[i] - itime) * 60.0f + sec[i];
+                if (iwt[i] < 5) sec[i] = (itime1[i] - itime) * 60.0 + sec[i];
             }
             *origtime = sec[jjmin];
             *iyr = iyr1[jjmin];
@@ -147,8 +147,8 @@ process_event:
         } else {
             for (int i = 0; i < *nobs; ++i) {
                 if (iwt[i] < 5) {
-                    sec[i] = (itime1[i] - itime_o) * 60.0f + sec[i];
-                    if (sec[i] < 0.0f) sec[i] = 0.0f;
+                    sec[i] = (itime1[i] - itime_o) * 60.0 + sec[i];
+                    if (sec[i] < 0.0) sec[i] = 0.0;
                 }
             }
         }

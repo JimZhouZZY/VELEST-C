@@ -9,8 +9,8 @@ void layers(int nx, int ny, int nz,
     (void)z;
     (void)nz;
 
-    double weight[4] = {0.0f};
-    double slowness_sum[100] = {0.0f};
+    double weight[4] = {0.0};
+    double slowness_sum[100] = {0.0};
 
     int event_i = 0;
     while (event_i < nx && x[event_i] < xe) event_i++;
@@ -42,7 +42,7 @@ void layers(int nx, int ny, int nz,
     double y_segment = (yr - ye) / (double)num_segments;
 
     for (int layer_index = 0; layer_index < nl; ++layer_index) {
-        slowness_sum[layer_index] = 0.0f;
+        slowness_sum[layer_index] = 0.0;
     }
 
     for (int point_index = 0; point_index < num_points; ++point_index) {

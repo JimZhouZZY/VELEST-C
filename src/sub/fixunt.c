@@ -27,7 +27,7 @@ void fixunt(double *b, int neqs, int nshot, int nl, int ksta,
         }
     }
 
-    if (scale[5] == 0.0f) {
+    if (scale[5] == 0.0) {
         return;
     }
 
@@ -44,7 +44,7 @@ void fixunt(double *b, int neqs, int nshot, int nl, int ksta,
             return;
         }
         double vd = vdamp[(m - 1) * inltot + (l - 1)];
-        if (vd != 0.0f) {
+        if (vd != 0.0) {
             b[i] *= scale[5] / vd;
         }
     }

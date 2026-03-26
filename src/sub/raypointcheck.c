@@ -17,11 +17,11 @@ void raypointcheck(const double *rp, int nrp, int inrpmax, const char *staname,
     }
 
     for (j = 0; j < nrp; ++j) {
-        if (rp[j * 3 + 2] < 0.0f) {
+        if (rp[j * 3 + 2] < 0.0) {
             chtop_fn(-rp[j * 3 + 0], rp[j * 3 + 1], &zzz, topo1file,
                      topo2file);
             dzzz = rp[j * 3 + 2] - zzz;
-            if (dzzz < 0.0f) {
+            if (dzzz < 0.0) {
                 fprintf(stderr,
                         " ray in the air... ! rp3=%6.3f ZZ=%6.3f dz=%6.3f rp# "
                         "=%2d nrp=%2d STN=%.4s i %4d\n",

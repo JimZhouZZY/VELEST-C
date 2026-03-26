@@ -7,8 +7,7 @@
 #include <stddef.h>
 #include <stdio.h>
 #include <string.h>
-
-#define MAX_STLINES 600
+#include "../include/globals.h"
 
 static char stlin[MAX_STLINES][81];
 static int maxstlin = 0;
@@ -110,7 +109,7 @@ void stinp(int itime, char *stn, char *sfreq, int *isper, int *iscon,
             ilin++;
         }
         
-        iscor = (int)(*scor * 1000.0f);
+        iscor = (int)(*scor * 1000.0);
         *ier = 0;
         return;
     }

@@ -11,7 +11,7 @@
 void mpdr2(int isecpendel, double seismkonst, double seismdamp,
            double voltgain, double pdrampl, double period, int iampltyp,
            double *ampl) {
-    double complex j = CMPLX(0.0f, 1.0f);  /* Imaginary unit */
+    double complex j = CMPLX(0.0, 1.0f);  /* Imaginary unit */
     double complex G, gseis, ghp, glp2, glp2a, glp3, jom;
     double zpi = 6.28319f;
     double ts, hs, om, om2, omg1, omg2, omg3, omg4, omg5, twa;
@@ -36,7 +36,7 @@ void mpdr2(int isecpendel, double seismkonst, double seismdamp,
     ghp = 1.0f / (1.0f - 2.0f * j * omg2 / om - omg2 * omg2 / om2);
     
     /* Butterworth low-pass 2nd order, fc=30 Hz */
-    omg3 = zpi * 30.0f;
+    omg3 = zpi * 30.0;
     glp2 = 1.0f / (1.0f + 1.4142f * j * om / omg3 - om2 / (omg3 * omg3));
     
     /* Butterworth low-pass 3rd order, fc=25 Hz (Discriminator) */
@@ -55,11 +55,11 @@ void mpdr2(int isecpendel, double seismkonst, double seismdamp,
     twa = 0.8f;
     omw = zpi / twa;
     hw = 0.78f;
-    vwa = 2800.0f;
+    vwa = 2800.0;
     wa_response = (om2 * vwa) / (omw * omw + 2.0f * jom * omw * hw - om2);
     G = wa_response / G;
     
     /* Compute amplitude as magnitude of complex transfer function */
     *ampl = cabs(G);  /* Amplitude response [sec] */
-    *ampl = (*ampl) * pdrampl / 10000.0f;  /* Convert to mm */
+    *ampl = (*ampl) * pdrampl / 10000.0;  /* Convert to mm */
 }

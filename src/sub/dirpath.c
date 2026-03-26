@@ -52,7 +52,7 @@ void dirpath(double xe, double ye, double ze, double xr, double yr, double zr,
     double dx = rp[0][*nrp - 1] - xr;
     double dy = rp[1][*nrp - 1] - yr;
     double dz = rp[2][*nrp - 1] - zr;
-    *direrr = sqrtf(dx * dx + dy * dy + dz * dz) * 1000.0f;
+    *direrr = sqrtf(dx * dx + dy * dy + dz * dz) * 1000.0;
     
     /* Assign final ray point (receiver location) */
     rp[0][*nrp - 1] = xr;

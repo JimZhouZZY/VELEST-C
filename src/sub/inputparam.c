@@ -3,12 +3,7 @@
 #include <stdio.h>
 #include <stdlib.h>
 #include <string.h>
-
-#define IEQ 658
-#define INSHOT 50
-#define ITOTMODELS 2
-#define INLTOT 100
-#define IST 650
+#include "../include/globals.h"
 
 extern int ieq, inshot, itotmodels, inltot;
 extern int maxobsperevent;
@@ -154,7 +149,7 @@ void inputparam(void) {
     char titleline[256] = {0};
     copy_trim(titleline, sizeof(titleline), lines[0]);
 
-    double olat_local = 0.0f, olon_local = 0.0f;
+    double olat_local = 0.0, olon_local = 0.0;
     if (sscanf(lines[1], "%lf %lf %d %lf %d %lf %d", &olat_local, &olon_local, &icoordsystem, &zshift, &itrial, &ztrial, &ised) < 7) {
         fprintf(stderr, "INPUTPARAM>>> failed parsing line 2\n");
         iabort = 1;
@@ -250,7 +245,7 @@ void inputparam(void) {
     nmod = (nsp == 2) ? 2 : 1;
 
     zmin = zmininput;
-    rmsmin = 0.0f;
+    rmsmin = 0.0;
     if (invertratio <= 0) invertratio = 999;
 
     if (isingle != 1) {
@@ -266,7 +261,7 @@ void inputparam(void) {
         setorg(olat_local, olon_local, rotate, (!single_turbo) ? 16 : 0);
     }
 
-    if (dmax == 0.0f) dmax = 150.0f;
+    if (dmax == 0.0) dmax = 150.0;
 
     fp = fopen(modelfilename, "r");
     if (!fp) {
@@ -313,7 +308,7 @@ void inputparam(void) {
                 iabort = 1;
                 return;
             }
-            double vpj = 0.0f, hpj = 0.0f, vdj = 0.0f;
+            double vpj = 0.0, hpj = 0.0, vdj = 0.0;
             if (sscanf(line, "%lf %lf %lf", &vpj, &hpj, &vdj) < 3) {
                 fclose(fp);
                 fprintf(stderr, "INPUTPARAM>>> bad velocity layer line: %s\n", line);
@@ -399,8 +394,8 @@ void inputparam(void) {
             model[nsta] = mode;
         }
 
-        double dx = 0.0f, dy = 0.0f;
-        double dz = -(double)ielev[nsta] / 1000.0f;
+        double dx = 0.0, dy = 0.0;
+        double dz = -(double)ielev[nsta] / 1000.0;
         // Debug print for latitude and longitude
         fprintf(stderr, "DEBUG: Station %d lat = %f, lon = %f\n", nsta, xla[nsta], xlo[nsta]);
         if (icoordsystem == 2) {
@@ -412,11 +407,11 @@ void inputparam(void) {
 
         x[nsta][0] = dx;
         x[nsta][1] = dy;
-        x[nsta][2] = (iuseelev == 1) ? dz : 0.0f;
+        x[nsta][2] = (iuseelev == 1) ? dz : 0.0;
 
         if (iusestacorr == 0) {
-            ptcor[nsta] = 0.0f;
-            stcor[nsta] = 0.0f;
+            ptcor[nsta] = 0.0;
+            stcor[nsta] = 0.0;
         }
 
         map1[nsta] = icc;
@@ -454,7 +449,7 @@ void inputparam(void) {
     for (int i = 0; i < nmod; ++i) nltot += nplay[i];
 
     for (int i = 0; i < ITOTMODELS; ++i) {
-        for (int j = 0; j < INLTOT; ++j) thkp[i][j] = 0.0f;
+        for (int j = 0; j < INLTOT; ++j) thkp[i][j] = 0.0;
     }
     for (int i = 0; i < nmod; ++i) {
         if (nplay[i] <= 1) continue;

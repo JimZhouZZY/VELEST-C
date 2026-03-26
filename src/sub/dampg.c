@@ -1,10 +1,4 @@
-#define IEQ 658
-#define INSHOT 50
-#define INLTOT 100
-#define IST 650
-#define ILIP (4 * IEQ + INSHOT + INLTOT + IST)
-#define INVA (ILIP - 1)
-#define IKVA ((INVA * ILIP) / 2)
+#include "../include/globals.h"
 
 extern int nvar;
 extern double othet;

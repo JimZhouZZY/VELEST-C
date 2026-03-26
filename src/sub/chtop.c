@@ -11,5 +11,5 @@ void chtop(double xx, double yy, double *zk, const char *topo1file,
         return;
     }
 
-    *zk = 0.0f;
+    *zk = 0.0;
 }

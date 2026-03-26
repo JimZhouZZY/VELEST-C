@@ -13,13 +13,13 @@ void regch(double x, double y, const int *lt25, int lt25_len,
 
     *nreg = 0;
 
-    if (x < 480.0f || x >= 865.0f || y <= 62.0f || y > 302.0f) {
+    if (x < 480.0 || x >= 865.0f || y <= 62.0f || y > 302.0f) {
         return;
     }
 
     dx = 17.5f;
     dy = 12.0f;
-    xx = x - 480.0f;
+    xx = x - 480.0;
     yy = 302.0f - y;
     nx = (int)(xx / dx);
     ny = (int)(yy / dy);

@@ -13,7 +13,7 @@ void bendray(double rp[3][200], int nrp, const char *staname, double vtop, doubl
 
     double xydist = sqrtf((rp[0][nrp - 1] - rp[0][0]) * (rp[0][nrp - 1] - rp[0][0]) +
                          (rp[1][nrp - 1] - rp[1][0]) * (rp[1][nrp - 1] - rp[1][0]));
-    if (xydist > 10.0f) {
+    if (xydist > 10.0) {
         return;
     }
 
@@ -23,8 +23,8 @@ void bendray(double rp[3][200], int nrp, const char *staname, double vtop, doubl
                               (rp[1][1] - rp[1][0]) * (rp[1][1] - rp[1][0]) +
                               (rp[2][1] - rp[2][0]) * (rp[2][1] - rp[2][0]));
     double takeoff_angle = 57.296f * asinf(takeoff_num / takeoff_den);
-    if ((rp[2][1] - rp[2][0]) < 0.0f) {
-        takeoff_angle = 180.0f - takeoff_angle;
+    if ((rp[2][1] - rp[2][0]) < 0.0) {
+        takeoff_angle = 180.0 - takeoff_angle;
     }
 
     int nrpm1 = nrp - 2;
@@ -34,16 +34,16 @@ void bendray(double rp[3][200], int nrp, const char *staname, double vtop, doubl
                              (rp[1][nrp - 1] - rp[1][nrpm1]) * (rp[1][nrp - 1] - rp[1][nrpm1]) +
                              (rp[2][nrp - 1] - rp[2][nrpm1]) * (rp[2][nrp - 1] - rp[2][nrpm1]));
     double arrive_angle = 57.296f * asinf(arrive_num / arrive_den);
-    if ((rp[2][1] - rp[2][0]) < 0.0f) {
-        arrive_angle = 180.0f - arrive_angle;
+    if ((rp[2][1] - rp[2][0]) < 0.0) {
+        arrive_angle = 180.0 - arrive_angle;
     }
 
     int hypocintop = 0;
-    double deltat1 = 0.0f;
-    double deltat2 = 0.0f;
+    double deltat1 = 0.0;
+    double deltat2 = 0.0;
 
-    double dx1 = 0.0f, dy1 = 0.0f, dz1 = 0.0f, xyz1 = 0.0f;
-    if (rp[2][0] < 0.0f) {
+    double dx1 = 0.0, dy1 = 0.0, dz1 = 0.0, xyz1 = 0.0;
+    if (rp[2][0] < 0.0) {
         hypocintop = 1;
         dx1 = rp[0][1] - rp[0][0];
         dy1 = rp[1][1] - rp[1][0];
@@ -72,7 +72,7 @@ void bendray(double rp[3][200], int nrp, const char *staname, double vtop, doubl
     dy2 /= 4.0f;
     dz2 /= 4.0f;
 
-    double rpn[3][10] = {{0.0f}};
+    double rpn[3][10] = {{0.0}};
 
     if (hypocintop) {
         for (int j = 0; j < 4; ++j) {
@@ -96,7 +96,7 @@ void bendray(double rp[3][200], int nrp, const char *staname, double vtop, doubl
 
     if (hypocintop) {
         for (int j = 1; j <= 4; ++j) {
-            double zzz = 0.0f;
+            double zzz = 0.0;
             chtop(-rpn[0][j], rpn[1][j], &zzz, topo1file, topo2file);
             zzz += 0.1f;
             if (rpn[2][j] < zzz) {
@@ -106,7 +106,7 @@ void bendray(double rp[3][200], int nrp, const char *staname, double vtop, doubl
     }
 
     for (int j = 5; j <= 8; ++j) {
-        double zzz = 0.0f;
+        double zzz = 0.0;
         chtop(-rpn[0][j], rpn[1][j], &zzz, topo1file, topo2file);
         zzz += 0.1f;
         if (rpn[2][j] < zzz) {
@@ -114,7 +114,7 @@ void bendray(double rp[3][200], int nrp, const char *staname, double vtop, doubl
         }
     }
 
-    double ttt1new = 0.0f;
+    double ttt1new = 0.0;
     if (hypocintop) {
         for (int j = 1; j <= 4; ++j) {
             int jm1 = j - 1;
@@ -125,7 +125,7 @@ void bendray(double rp[3][200], int nrp, const char *staname, double vtop, doubl
         }
     }
 
-    double ttt2new = 0.0f;
+    double ttt2new = 0.0;
     for (int j = 6; j <= 9; ++j) {
         int jm1 = j - 1;
         double xyz2n = sqrtf((rpn[0][j] - rpn[0][jm1]) * (rpn[0][j] - rpn[0][jm1]) +
